@@ -10,6 +10,7 @@ DATA_EXPERT = []
 BG_EASY = BG_EXPERT = BG_TIME = BG_SURVIVAL = None
 img_halaman_judul = img_halaman_level = None
 HEART_FULL = HEART_EMPTY = None
+GAMEOVER_BG = None
 
 def get_asset_path(filename):
     if os.path.exists(os.path.join("assets", filename)):
@@ -88,13 +89,14 @@ def load_all_assets():
     global img_halaman_judul, img_halaman_level
     global HEART_FULL, HEART_EMPTY
     global BTN_EXIT, BTN_BACK
-    
+    global GAMEOVER_BG
     # Load backgrounds
     try:
         BG_EASY = pygame.transform.scale(pygame.image.load("assets/easy.png"), (WIDTH, HEIGHT))
         BG_EXPERT = pygame.transform.scale(pygame.image.load("assets/easy.png"), (WIDTH, HEIGHT))
         BG_TIME = pygame.transform.scale(pygame.image.load("assets/easy.png"), (WIDTH, HEIGHT))
         BG_SURVIVAL = pygame.transform.scale(pygame.image.load("assets/easy.png"), (WIDTH, HEIGHT))
+        GAMEOVER_BG = pygame.transform.scale(pygame.image.load("assets/gameover.png"), (WIDTH, HEIGHT))
     except:
         print("Background images tidak ditemukan!")
     

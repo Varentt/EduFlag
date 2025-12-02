@@ -154,16 +154,26 @@ while running:
                                   btn_back_play.centery - t_back.get_height()//2))
     
     elif state == "GAMEOVER":
+        # Tampilkan background gameover jika tersedia
+        if hasattr(utils, "GAMEOVER_BG") and utils.GAMEOVER_BG:
+            screen.blit(utils.GAMEOVER_BG, (0, 0))
+        else:
+            screen.fill(WHITE)
+
+        # Teks Game Over
         t_go = BIG_FONT.render("GAME OVER", True, RED)
-        screen.blit(t_go, (WIDTH//2 - t_go.get_width()//2, 200))
-        
+        screen.blit(t_go, (WIDTH//2 - t_go.get_width()//2, 120))
+
+        # Score
         score = current_mode.score if current_mode else 0
         t_sc = FONT.render(f"Final Score: {score}", True, BLACK)
-        screen.blit(t_sc, (WIDTH//2 - t_sc.get_width()//2, 260))
-        
+        screen.blit(t_sc, (WIDTH//2 - t_sc.get_width()//2, 220))
+
+        # Tombol ke menu
         pygame.draw.rect(screen, BLUE, btn_menu_gameover)
         t_menu = FONT.render("Main Menu", True, WHITE)
         screen.blit(t_menu, (WIDTH//2 - t_menu.get_width()//2, 360))
+
     
     pygame.display.flip()
     clock.tick(60)

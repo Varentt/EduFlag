@@ -21,7 +21,7 @@ class GameMode:
         t_head = FONT.render(header, True, BLACK)
         self.screen.blit(t_head, (20, 20))
     
-    def draw_question_text(self, text, y=80):
+    def draw_question_text(self, text, y=150):
         t_q = FONT.render(text, True, BLACK)
         self.screen.blit(t_q, t_q.get_rect(center=(WIDTH//2, y)))
     
@@ -148,16 +148,23 @@ class EasyMode(GameMode):
     def handle_click(self, pos):
         box_w, box_h = 320, 52
         gap_y = 18
-        start_x = WIDTH//2 - box_w//2
+        start_x = WIDTH // 2 - box_w // 2
         start_y = 290
-        
-        for i, country in enumerate(self.options):
-            y = start_y + i*(box_h + gap_y)
-            rect = pygame.Rect(start_x, y, box_w, box_h)
-            if rect.collidepoint(pos):
-                return self.check_answer(country)
-        return "CONTINUE"
 
+        for i, country in enumerate(self.options):
+            y = start_y + i * (box_h + gap_y)
+            rect = pygame.Rect(start_x, y, box_w, box_h)
+
+            if rect.collidepoint(pos):
+                result = self.check_answer(country)
+
+                # FIX: generate soal baru kalau belum selesai
+                if result == "CONTINUE":
+                    self.generate_question()
+
+                return result
+
+        return "CONTINUE"
 
 class ExpertMode(GameMode):
     def __init__(self, screen):
